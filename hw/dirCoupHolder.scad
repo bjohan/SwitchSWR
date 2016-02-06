@@ -147,7 +147,19 @@ module couplerHolderAssembly()
         couplerHolderTopHalf();
 }
 
-couplerHolderAssembly();
+module couplerHolderPrint()
+{
+    couplerHolderBottomHalf();
+    translate([120, 30, 0])
+        couplerHolderBottomHalf();
+}
+
+module couplerHolderPrintOne()
+{
+    couplerHolderBottomHalf();
+    
+}
+//couplerHolderAssembly();
 
 /*translate([-3, 5, 0]){
 	difference(){
