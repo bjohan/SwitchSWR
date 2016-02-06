@@ -112,26 +112,42 @@ module holderBody(){
 
 module holes(){
 	translate([50.25-33+3, 2, 3]){
-	drillHoles(7/2, 3);
+        relayHolderHoles(7/2, 3);
 	}
 	translate([50.25-33+3, 2, 0]){
-	drillHoles(3/2, 30);
+        relayHolderHoles(3/2, 30);
 	}
 }
 
 
-
-difference(){
-	holderBody($fn=20);
-	holes($fn=20);	
-	translate([0, 142+6, 0]){
-		mirror([0, 1, 0]){
-			holes($fn=20);
-		}
-	}
-	
+module couplerHolderBottomHalf()
+{
+    difference(){
+        holderBody($fn=20);
+        holes($fn=20);	
+        translate([0, 142+6, 0]){
+            mirror([0, 1, 0]){
+                holes($fn=20);
+            }
+        }
+        
+    }
 }
 
+module couplerHolderTopHalf()
+{
+    mirror([0, 0, 1])
+        couplerHolderBottomHalf();
+}
+
+module couplerHolderAssembly()
+{
+    couplerHolderBottomHalf();
+    translate([0, 0, 24*2])
+        couplerHolderTopHalf();
+}
+
+couplerHolderAssembly();
 
 /*translate([-3, 5, 0]){
 	difference(){
