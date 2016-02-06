@@ -1,4 +1,4 @@
-module holder(){
+module relayHolderBody(){
 	wallWidth = 8;
 	translate([0,0,4]){
 		cube([66, 58, 2]);
@@ -24,7 +24,7 @@ module holder(){
 	}
 }
 
-module drillHoles(r, dep){
+module relayHolderHoles(r, dep){
 	translate([22, 4,0]){
 		cylinder(dep, r+0.2, r+0.2);
 	}	
@@ -50,14 +50,45 @@ module drillHoles(r, dep){
 	}	
 }
 
-difference(){
-	holder($fn=20);
-	drillHoles(3/2, 70, $fn=20);	
-	drillHoles(7/2, 3);
-	translate([-10, 25, 10]){
-	cube([100, 25, 25]);
+module relayHolder(){
+    difference(){
+        relayHolderBody($fn=20);
+        relayHolderHoles(3/2, 70, $fn=20);	
+        relayHolderHoles(7/2, 3);
+        translate([-10, 25, 10]){
+            cube([100, 25, 25]);
+        }
+    }
 }
+
+module relayHolderTopBase(){
+	wallWidth = 8;
+	translate([-wallWidth, 0, 0]){
+		cube([66+2*wallWidth, 58+wallWidth, 4]);
+	}
 }
 
 
+module relayHolderTop()
+{
+    difference(){
+        relayHolderTopBase($fn=20);
+        relayHolderHoles(3/2, 70, $fn=20);	
+    }
+}
+
+module relayHolderAssembly()
+{
+    relayHolder();
+    translate([0,0,31.5])
+        relayHolderTop();
+}
+
+module relayHolderPrint(){
+    relayHolder();
+    translate([0,70,0])
+        relayHolderTop();
+}
+
+//relayHolderPrint();
 
